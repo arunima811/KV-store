@@ -34,6 +34,7 @@ def start_connection(host, port, request):
     events = selectors.EVENT_READ | selectors.EVENT_WRITE
     message = libclient.Message(sel, sock, addr, request)
     sel.register(sock, events, data=message)
+    print(sel)
 
 
 if len(sys.argv) != 5:
@@ -44,10 +45,13 @@ host, port = sys.argv[1], int(sys.argv[2])
 action, value = sys.argv[3], sys.argv[4]
 request = create_request(action, value)
 start_connection(host, port, request)
+print("conn started")
 
 try:
     while True:
         events = sel.select(timeout=1)
+        print("events")
+        print(events)
         for key, mask in events:
             message = key.data
             try:

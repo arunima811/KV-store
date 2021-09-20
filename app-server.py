@@ -34,12 +34,15 @@ sel.register(lsock, selectors.EVENT_READ, data=None)
 
 try:
     while True:
+        print("inside true")
         events = sel.select(timeout=None)
+        print(events)
         for key, mask in events:
             if key.data is None:
                 accept_wrapper(key.fileobj)
             else:
                 message = key.data
+                print(message)
                 try:
                     message.process_events(mask)
                 except Exception:

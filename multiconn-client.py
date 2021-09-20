@@ -25,6 +25,8 @@ def start_connections(host, port, num_conns):
             messages=list(messages),
             outb=b"",
         )
+        print("data :")
+        print(data)
         sel.register(sock, events, data=data)
 
 
